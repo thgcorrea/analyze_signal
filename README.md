@@ -1,6 +1,6 @@
 # Analyze Signal - Monorepo
 
-A full-stack application for analyzing numeric signal data, built with FastAPI (backend) and a modern frontend framework.
+A full-stack application for analyzing numeric signal data, built with FastAPI (backend) and React TypeScript (frontend).
 
 ## Project Structure
 
@@ -12,8 +12,17 @@ analyze_signal/
 │   ├── Dockerfile   # Docker configuration
 │   ├── Makefile     # Development commands
 │   └── README.md    # Backend documentation
-└── frontend/         # Frontend application (to be implemented)
-    └── ...
+└── frontend/         # React TypeScript frontend
+    ├── src/         # Source code
+    │   ├── pages/   # Page components
+    │   ├── shared/  # Reusable components
+    │   ├── hooks/   # Custom React hooks
+    │   ├── services/# API services
+    │   ├── utils/   # Utility functions
+    │   ├── types/   # TypeScript definitions
+    │   └── tests/   # Test files
+    ├── .env.example # Environment variables template
+    └── craco.config.js # Build configuration
 ```
 
 ## Features
@@ -26,6 +35,17 @@ analyze_signal/
 - **Code Quality**: Black formatting, isort, flake8 linting
 - **Docker Support**: Containerized deployment with docker-compose
 - **Development Tools**: Makefile with common commands
+
+### Frontend (React TypeScript)
+- **Signal Analysis Interface**: Interactive UI for inputting signal data
+- **Results Visualization**: Display of statistical analysis and trend detection
+- **Input Validation**: Real-time validation of numeric input arrays
+- **Responsive Design**: Mobile-first approach with Material-UI
+- **Path Aliases**: Clean imports with "@" aliases (`@/components`, `@/hooks`, etc.)
+- **Styled Components**: Emotion-based styled components architecture
+- **Comprehensive Testing**: 63+ unit and integration tests with Jest and React Testing Library
+- **Code Quality**: ESLint, Prettier formatting
+- **Environment Configuration**: Configurable API endpoints via .env files
 
 ### API Endpoint
 ```
@@ -46,6 +66,39 @@ Response:
 ```
 
 ## Quick Start
+
+### Frontend Development
+
+1. **Set up environment:**
+   ```bash
+   cd frontend
+   cp .env.example .env
+   npm install
+   ```
+
+2. **Configure environment variables:**
+   Edit `.env` file:
+   ```bash
+   REACT_APP_API_BASE_URL=http://localhost:8000
+   ```
+
+3. **Run the application:**
+   ```bash
+   npm start
+   ```
+   Frontend will be available at `http://localhost:3000`
+
+4. **Run tests:**
+   ```bash
+   npm test           # All tests
+   npm run test:coverage  # With coverage report
+   ```
+
+5. **Code quality:**
+   ```bash
+   npm run lint:fix   # Auto-fix linting issues
+   npm run format     # Format code with Prettier
+   ```
 
 ### Backend Development
 
@@ -83,6 +136,22 @@ make docker-up
 
 ## Development Workflow
 
+### Frontend Commands
+```bash
+cd frontend
+
+# Environment setup
+cp .env.example .env  # Copy environment template
+npm install          # Install dependencies
+
+# Development
+npm start           # Start development server
+npm test            # Run all tests
+npm run build       # Build for production
+npm run lint:fix    # Fix linting issues
+npm run format      # Format code with Prettier
+```
+
 ### Backend Commands
 ```bash
 cd backend
@@ -117,8 +186,15 @@ Once the backend is running, visit:
 - **Flake8**: Code linting
 - **Docker**: Containerization
 
-### Frontend (Planned)
-- To be implemented with modern frontend framework
+### Frontend
+- **React 19**: Modern UI library
+- **TypeScript**: Type-safe JavaScript
+- **Material-UI (MUI)**: React component library
+- **Emotion**: CSS-in-JS styled components
+- **React Testing Library**: Component testing
+- **Jest**: Testing framework
+- **ESLint + Prettier**: Code quality and formatting
+- **CRACO**: Create React App configuration override
 
 ## Project Architecture
 
@@ -135,6 +211,28 @@ backend/app/
 └── main.py            # FastAPI application entry point
 ```
 
+### Frontend Structure
+```
+frontend/src/
+├── pages/
+│   └── SignalAnalyzer/ # Main signal analysis page
+├── shared/             # Reusable components
+│   ├── InputField/    # Text input component
+│   ├── SubmitButton/  # Submit button component
+│   └── ResultCard/    # Result display card
+├── hooks/
+│   └── useSignalAnalysis.ts # Signal analysis API hook
+├── services/
+│   └── api.ts         # API client configuration
+├── utils/
+│   └── inputParser.ts # Input parsing and validation
+├── types/
+│   └── index.ts       # TypeScript type definitions
+└── tests/
+    ├── unit/          # Unit tests by component
+    └── integration/   # Integration tests
+```
+
 ### Test Structure
 ```
 backend/tests/
@@ -143,7 +241,43 @@ backend/tests/
 │   └── services/      # Business logic tests
 └── integration/
     └── api/          # API endpoint tests
+
+frontend/src/tests/
+├── unit/
+│   ├── InputField/    # Input component tests
+│   ├── SubmitButton/  # Button component tests
+│   ├── ResultCard/    # Result card tests
+│   ├── SignalAnalyzer/# Main page tests
+│   ├── hooks/         # React hooks tests
+│   └── utils/         # Utility function tests
+└── integration/
+    └── signalAnalysis/# End-to-end integration tests
 ```
+
+## Environment Configuration
+
+### Frontend Environment Variables
+
+The frontend uses environment variables to configure API endpoints and other settings.
+
+**Required Variables:**
+- `REACT_APP_API_BASE_URL`: Base URL for the backend API (e.g., `http://localhost:8000`)
+
+**Setup:**
+1. Copy the example file: `cp frontend/.env.example frontend/.env`
+2. Update the `.env` file with your specific configuration
+3. The `.env` file is git-ignored for security
+
+**Example `.env` file:**
+```bash
+# API Configuration
+REACT_APP_API_BASE_URL=http://localhost:8000
+
+# Environment
+NODE_ENV=development
+```
+
+**Note:** All React environment variables must be prefixed with `REACT_APP_` to be accessible in the browser.
 
 ## Signal Analysis Algorithm
 

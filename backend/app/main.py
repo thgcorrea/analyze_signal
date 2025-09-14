@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.routers import analyze_signal_router
 
@@ -6,6 +7,15 @@ app = FastAPI(
     title="Signal Analysis API",
     description="A simple API to analyze numeric signals",
     version="1.0.0",
+)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Frontend origin
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
 )
 
 # Include routers
@@ -25,7 +35,7 @@ async def root():
         "message": "Signal Analysis API",
         "version": "1.0.0",
         "endpoints": {
-            "analyze_signal": "/analyze_signal/analisar_sinal",
+            "analyze_signal": "/analisar_sinal",
             "health": "/health",
             "docs": "/docs",
         },

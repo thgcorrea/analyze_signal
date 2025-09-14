@@ -10,7 +10,7 @@ class TestAnalyzeSignalAPI:
 
     def test_analisar_sinal_success(self):
         response = client.post(
-            "/analyze_signal/analisar_sinal", json={"data": [1, 2, 3, 4, 5]}
+            "/analisar_sinal", json={"data": [1, 2, 3, 4, 5]}
         )
 
         assert response.status_code == 200
@@ -22,7 +22,7 @@ class TestAnalyzeSignalAPI:
 
     def test_analisar_sinal_descending(self):
         response = client.post(
-            "/analyze_signal/analisar_sinal", json={"data": [5, 4, 3, 2, 1]}
+            "/analisar_sinal", json={"data": [5, 4, 3, 2, 1]}
         )
 
         assert response.status_code == 200
@@ -34,7 +34,7 @@ class TestAnalyzeSignalAPI:
 
     def test_analisar_sinal_stable(self):
         response = client.post(
-            "/analyze_signal/analisar_sinal", json={"data": [3, 3, 3, 3, 3]}
+            "/analisar_sinal", json={"data": [3, 3, 3, 3, 3]}
         )
 
         assert response.status_code == 200
@@ -46,20 +46,20 @@ class TestAnalyzeSignalAPI:
 
     def test_analisar_sinal_empty_array(self):
         response = client.post(
-            "/analyze_signal/analisar_sinal", json={"data": []}
+            "/analisar_sinal", json={"data": []}
         )
 
         assert response.status_code == 422  # Validation error
 
     def test_analisar_sinal_invalid_data_type(self):
         response = client.post(
-            "/analyze_signal/analisar_sinal", json={"data": ["a", "b", "c"]}
+            "/analisar_sinal", json={"data": ["a", "b", "c"]}
         )
 
         assert response.status_code == 422  # Validation error
 
     def test_analisar_sinal_missing_data_field(self):
-        response = client.post("/analyze_signal/analisar_sinal", json={})
+        response = client.post("/analisar_sinal", json={})
 
         assert response.status_code == 422  # Validation error
 

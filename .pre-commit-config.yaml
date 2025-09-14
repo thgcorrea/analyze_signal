@@ -1,4 +1,5 @@
 repos:
+  # Backend Python hooks
   - repo: https://github.com/psf/black
     rev: 23.11.0
     hooks:
@@ -18,4 +19,21 @@ repos:
     hooks:
       - id: flake8
         files: ^backend/.*\.py$
-        args: [--config=backend/pyproject.toml]
+        args: [--config=backend/setup.cfg]
+
+  # Frontend JavaScript/TypeScript hooks
+  - repo: local
+    hooks:
+      - id: eslint
+        name: ESLint
+        entry: bash -c 'cd frontend && npm run lint:fix'
+        language: system
+        files: ^frontend/.*\.(ts|tsx)$
+        pass_filenames: false
+
+      - id: prettier
+        name: Prettier
+        entry: bash -c 'cd frontend && npm run format'
+        language: system
+        files: ^frontend/.*\.(ts|tsx)$
+        pass_filenames: false
