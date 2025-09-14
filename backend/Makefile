@@ -35,7 +35,7 @@ install-dev:
 
 install-hooks:
 	@if [ ! -d "$(VENV)" ]; then echo "Virtual environment not found. Run 'make install-dev' first."; exit 1; fi
-	$(VENV)/bin/pre-commit install
+	cd .. && backend/$(VENV)/bin/pre-commit install
 	@echo "Pre-commit hooks installed. Code will be auto-formatted on commit."
 
 format:
